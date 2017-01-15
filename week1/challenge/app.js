@@ -26,6 +26,11 @@ MongoClient.connect('mongodb://localhost:27017/video', function(err, db) {
   })
 
   app.post('/movies', function(req, res){
+    let name = req.body.name;
+    let year = req.body.year;
+    let imdb = req.body.imdb;
+    console.log(name + ":" + year + ":" + imdb);
+    db.collection('movies').insertOne({"title": name, "year": year, "imbd": imdb});
     db.collection('movies').find({}).toArray(function(err, docs) {
       res.render('movies', { 'movies': docs } );
     });
