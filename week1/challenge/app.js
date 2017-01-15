@@ -25,15 +25,23 @@ MongoClient.connect('mongodb://localhost:27017/video', function(err, db) {
     res.render('form');
   })
 
-  app.post('/movies', function(req, res){
+  app.post('/movies', function(req, res, next){
     let name = req.body.name;
     let year = req.body.year;
     let imdb = req.body.imdb;
     console.log(name + ":" + year + ":" + imdb);
-    db.collection('movies').insertOne({"title": name, "year": year, "imbd": imdb});
-    db.collection('movies').find({}).toArray(function(err, docs) {
-      res.render('movies', { 'movies': docs } );
-    });
+    if ((name == '') || (year == '') || (imdb == '')) {
+      next('Please provide an entry for all fields.');
+    } else {
+      db.collection('movies').insertOne(
+        {"title": name, "year": year, "imbd": imdb},
+        function (err, r) {
+          assert.equal(null, err);
+          res.send("Document inserted with _id: " + r.insertedId);
+        }
+      );
+
+    }
   });
 
   app.use(function(req, res){
