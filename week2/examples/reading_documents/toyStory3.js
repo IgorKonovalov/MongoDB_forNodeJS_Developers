@@ -1,14 +1,14 @@
 {
     "_id" : ObjectId("5692a15524de1e0ce2dfcfa3"),
-    "title" : "Toy Story 3",
+    "title" : "Toy Story 3", // find all but show only titles db.collection.find({}, {title: 1, _id: 0}).pretty()
     "year" : 2010,
-    "rated" : "G",
+    "rated" : "G", // find by rated db.collection.find({ rated: "G" }).pretty()
     "released" : ISODate("2010-06-18T04:00:00Z"),
-    "runtime" : 103,
+    "runtime" : 103, // find by rated and runtime db.collection.find({ "rated": "G", "runtime": 103 }).pretty()
     "countries" : [
         "USA"
     ],
-    "genres" : [
+    "genres" : [ // how many? add .count() 
         "Animation",
         "Adventure",
         "Comedy"
@@ -20,8 +20,8 @@
         "Lee Unkrich",
         "Michael Arndt"
     ],
-    "actors" : [
-        "Tom Hanks",
+    "actors" : [ // find by array value in order db.collection.find({ "actors": ["Tom Hanks", "Tim Allen"] }).pretty()
+        "Tom Hanks", // find in array with exact position db.collection.find({ "actors.0": "Tom Hanks"})
         "Tim Allen",
         "Joan Cusack",
         "Ned Beatty"
