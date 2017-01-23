@@ -1,4 +1,4 @@
-db.movieDetails.find({ genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty()
+db.movieDetails.find({ genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty() // если встречаются оба в массиве, независимо от остального
 
 db.movieDetails.find({ countries: { $size: 1 } }).pretty() // размер массива
 
