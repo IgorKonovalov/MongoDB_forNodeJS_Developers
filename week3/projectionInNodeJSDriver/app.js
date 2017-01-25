@@ -11,7 +11,7 @@ MongoClient.connect('mongodb://localhost:27017/crunchbase', function(err, db) {
     var query = {"category_code": "biotech"};
     var projection = {"name": 1, "category_code": 1, "_id": 0}; // действует как второй аргумент find() если вызывается из командной строки - вызывает только определенные поля документа или вызывает все кроме (если указаны только '0')
 
-    // cursor.project(projection); можно разделять или чейнить по взрослому
+    // cursor.project(projection); можно разделять или чейнить по взрослому:
     // cursor.forEach
 
     var cursor = db.collection('companies')
