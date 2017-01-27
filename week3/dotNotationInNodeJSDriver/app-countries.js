@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient,
-    commandLineArgs = require('command-line-args'), 
+    commandLineArgs = require('command-line-args'),
     assert = require('assert');
 
 
@@ -10,7 +10,7 @@ MongoClient.connect('mongodb://localhost:27017/crunchbase', function(err, db) {
 
     assert.equal(err, null);
     console.log("Successfully connected to MongoDB.");
-    
+
     var query = queryDocument(options);
     var projection = {"_id": 0,
                       "name": 1,
@@ -39,7 +39,7 @@ MongoClient.connect('mongodb://localhost:27017/crunchbase', function(err, db) {
 function queryDocument(options) {
 
     console.log(options);
-    
+
     var query = {
         "founded_year": {
             "$gte": options.firstYear,
@@ -50,21 +50,21 @@ function queryDocument(options) {
     if ("employees" in options) {
         query.number_of_employees = { "$gte": options.employees };
     }
-    
+
     if ("ipo" in options) {
         if (options.ipo == "yes") {
             query["ipo.valuation_amount"] = {"$exists": true, "$ne": null};
         } else if (options.ipo == "no") {
             query["ipo.valuation_amount"] = null;
-        }               
+        }
     }
 
     if ("country" in options) {
         query["offices.country_code"] = options.country;
     }
-    
+
     return query;
-    
+
 }
 
 
@@ -77,7 +77,7 @@ function commandLineOptions() {
         { name: "ipo", alias: "i", type: String },
         { name: "country", alias: "c", type: String }
     ]);
-    
+
     var options = cli.parse()
     if ( !(("firstYear" in options) && ("lastYear" in options))) {
         console.log(cli.getUsage({
@@ -88,7 +88,5 @@ function commandLineOptions() {
     }
 
     return options;
-    
+
 }
-
-
