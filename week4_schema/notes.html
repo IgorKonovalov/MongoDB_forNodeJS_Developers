@@ -1,0 +1,72 @@
+
+<head>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+</head>
+
+
+<body>
+  <div class="container">
+    <br>
+    <h5>Schema for mongodb in current app is to match the data access patterns of your app</h5>
+    <hr>
+
+    <h5>Goals of normalization:</h5>
+    <ul>
+      <li>free the database of modification abnormaloties</li>
+      <li>minimize redisign when extending db</li>
+    </ul>
+    <hr>
+
+    <h5>Modeling a blog in mongodb</h5>
+    <p>only one document is needed</p>
+    <pre><code>
+      {
+        postid: "",
+        author: "",
+        date: "",
+        content: "",
+        comments: [1, 2, 3],
+        tags: ['one', 'two'],
+        somestuff: ""
+      }
+    </code></pre>
+    <hr>
+
+    <h5>embedding data to avoid data relation errors - keep your data consistent!</h5>
+    <p>comments and tags are embedded to post data so it cannot mix with other post</p>
+    <img src="img\embedding_collections.png" width="75%" alt="">
+    <hr>
+
+    <h5>One to one relations - what to consider</h5>
+    <ul>
+      <li>frequency of access</li>
+      <li>size of items</li>
+      <li>atomicity of data (you may want to keep documents in one collection to maintain consistency of data)</li>
+      <li>if one collection is not exist yet</li>
+    </ul>
+    <img src="img\one-to-one.png" width="75%" alt="">
+    <hr>
+
+    <h5>multikey indexes</h5>
+    <p>we have a collection:</p>
+    <img src="img\multikey1.png" width="75%" alt="">
+    <p>how to find all students for particulat teacher? Creating index for teachers</p>
+    <img src="img\multikey2.png" width="75%" alt="">
+    <p>to understand what's going on use command</p>
+    <code>db.students.find({'teachers': {$all:[0,1]}}).explain()</code>
+    <hr>
+
+    <h5>Benefits of embedding</h5>
+    <ul>
+      <li>Improved read performance</li>
+      <li>one round trip to DB</li>
+    </ul>
+    <hr>
+
+    <h5>Representing tree</h5>
+    <img src="img\tree.png" width="75%" alt="">
+    <hr>
+  </div>
+</body>
