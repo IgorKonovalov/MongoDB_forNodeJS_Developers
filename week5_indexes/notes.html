@@ -69,5 +69,38 @@
     <h5>Multikey Indexes</h5>
     <p>If you have multikey index, you cannot insert both parameters as an array, ether one is ok</p>
     <img src="img\multikey_index.png" alt="" width="60%">
+    <hr>
+    <h5>Dot Notation</h5>
+    <img src="img\dot_notation_index.png" alt="" width="60%">
+    <hr>
+    <h5>Index Build Operation</h5>
+    <p>background build not blocking read/write operations</p>
+    <a href="https://docs.mongodb.com/manual/core/index-creation/?_ga=1.54991659.1456337551.1484125607#index-creation-background">full doc</a>
+    <hr>
+    <h5>Explain options</h5>
+    <a href="https://docs.mongodb.com/manual/reference/method/cursor.explain/">here</a>
+    <hr>
+    <h5>Geospatial indexes</h5>
+    <code>db.(collection).createIndex({location: '2d'})</code>
+    <br>
+    <img src="img\geospatial_index.png" alt="" width="60%">
+    <hr>
+    <h5>Geo Sphere quary</h5>
+    <img src="img\geo_sphere.png" alt="" width="60%">
+    <hr>
+    <h5>Forsing of using particular index - hint command</h5>
+    <code>db.students.find({student_id:{$gt:500000}, class_id:54}).sort({student_id:1}).hint({class_id:1}).explain("executionstats")</code>
+    <hr>
+    <h5>Efficiency of Index Use</h5>
+    <img src="img\efficeincy_of_indexes.png" alt="" width="60%">
+    <hr>
+    <h5>Profiling</h5>
+    <a href="https://docs.mongodb.com/manual/reference/database-profiler/?_ga=1.253513737.1456337551.1484125607">docs</a>
+    <br>
+    <img src="img\profiling.png" alt="" width="60%">
+    <hr>
+    <h5>Mongostat</h5>
+    <img src="img\mongostat.png" alt="" width="60%">
+    <hr>
   </div>
 </body>
