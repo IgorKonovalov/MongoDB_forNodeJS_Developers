@@ -7,5 +7,67 @@
 
 
 <body>
+  <div class="container">
+    <h5>Storage Engine</h5>
+    <ul>
+      <li>MMAP</li>
+      <li>Wired Tiger</li>
+    </ul>
+    <img src="img\engine_quiz.png" alt="" width="60%">
+    <hr>
+    <h5>MMAPv1</h5>
+    <p>Operation system deside what part of file containing DB will be in memory, we cannot affect this</p>
+    <p>is the original MongoDB storage engine and is the default storage engine for MongoDB versions before 3.2. It performs well on workloads with high volumes of reads and writes, as well as in-place updates.</p>
+    <a href="https://docs.mongodb.com/manual/core/mmapv1/">more on MMAP engine</a>
 
+    <p>Correct</p><ul class="simple"><li>MMAPv1 automatically allocates power-of-two-sized documents when new
+    documents are inserted<ul><li>This is handled by the storage engine.</li></ul></li><li>MMAPv1 is built on top of the mmap system call that maps files into
+    memory<ul><li>This is the basic idea behind why we call it MMAPv1.</li></ul></li></ul><p>Wrong ones are:</p><ul class="simple"><li>MMAPv1 offers document-level locking<ul><li>It has collection level locking.</li></ul></li><li>MongoDB manages the memory used by each mapped file, deciding which
+    parts to swap to disk.<ul><li>The operating system handles this.</li></ul></li></ul>
+    <hr>
+    <h5>Wired Tiger engine</h5>
+    <p>Default since 3.2</p>
+    <a href="https://docs.mongodb.com/manual/core/wiredtiger/">Information about</a>
+    <hr>
+    <h5>Creating Indexes</h5>
+    <pre><code>
+      // let's create collection
+      db=db.getSiblingDB("school");
+      db.students.drop();
+      types = ['exam', 'quiz', 'homework', 'homework'];
+      // 1 million students
+      for (i = 0; i < 1000000; i++) {
+
+          // take 10 classes
+          for (class_counter = 0; class_counter < 10; class_counter ++) {
+      	scores = []
+      	    // and each class has 4 grades
+      	    for (j = 0; j < 4; j++) {
+      		scores.push({'type':types[j],'score':Math.random()*100});
+      	    }
+
+      	// there are 500 different classes that they can take
+      	class_id = Math.floor(Math.random()*501); // get a class id between 0 and 500
+
+      	record = {'student_id':i, 'scores':scores, 'class_id':class_id};
+      	db.students.insert(record);
+          }
+      }
+      // let's build an index
+      db.students.createIndex({student_id: 1})
+      db.students.explain(true).find({student_id: 10}) // выполнит поиск и выдаст расширенную инфу (explain)
+    </code></pre>
+    <hr>
+    <h5>Discovering and deleting indexes</h5>
+    <code>
+      db.(collection).getIndexes();
+    </code>
+    <code>
+      db.collection.dropIndex({(index)});
+    </code>
+    <hr>
+    <h5>Multikey Indexes</h5>
+    <p>If you have multikey index, you cannot insert both parameters as an array, ether one is ok</p>
+    <img src="img\multikey_index.png" alt="" width="60%">
+  </div>
 </body>
