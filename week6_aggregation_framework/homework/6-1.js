@@ -17,5 +17,9 @@ db.companies.aggregate( [
         _id: "$relationships.person",
         company: { $addToSet: "$name"},
     } },
+    { $project: {
+        _id: 1,
+        numberOfUniqueCompanies: { $size: "$company"}
+    } },
     { $match: { "_id.permalink": "eric-di-benedetto"}}
   ] ).pretty()
